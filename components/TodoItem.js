@@ -2,6 +2,7 @@ import {inject, observer} from 'mobx-react';
 import React from 'react';
 import {View, Text, StyleSheet, Switch} from 'react-native';
 
+
 const TodoItem = ({text, active, TodosList, id}) => {
   console.log(active);
 
@@ -31,9 +32,9 @@ const TodoItem = ({text, active, TodosList, id}) => {
 const styles = active =>
   StyleSheet.create({
     todoItemContainer: {
-      backgroundColor: `${!active ? '#c1c1c130' : 'white'}`,
-      marginLeft: 3,
-      marginRight: 3,
+      backgroundColor: `${!active ? 'lightgrey' : 'white'}`,
+      paddingLeft: 3,
+      paddingRight: 3,
       borderBottomWidth: 1,
       borderBottomColor: 'lightgrey',
       height: 50,

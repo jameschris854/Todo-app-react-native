@@ -19,7 +19,6 @@ const InputTodo = ({TodosList}) => {
   const {switchInputState, addNewTodo} = TodosList;
 
   const [inputText, setInputText] = useState('');
-
   return (
     <View style={styles.inputWrapper} blurRadius={1}>
       <View style={styles.inputContainer}>
