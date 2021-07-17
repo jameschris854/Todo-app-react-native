@@ -28,7 +28,7 @@ import TodoStats from './screens/TodosStats';
 import InputTodo from './components/InputTodo'
 import AddButton from './components/AddButton'
 import FontAwesome, { SolidIcons, RegularIcons, BrandIcons,parseIconFromClassName } from 'react-native-fontawesome';
-
+import TodosInput from './screens/TodosInput';
 // import todosScreen from './screens/todos.screen';
 
 const windowWidth = Dimensions.get('window').width;
@@ -36,14 +36,13 @@ const windowHeight = Dimensions.get('window').height;
 const chartIcon = parseIconFromClassName('fas fa-chart-pie') // will be parsed to chevronLeft
 
 const Tab = createBottomTabNavigator();
-const App = ({TodosList}) => {
+const App = ({RootStore}) => {
+  const TodosList = RootStore.TodosList
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
   console.log(TodosList.todoInputState);
-               const {switchInputState, addNewTodo} = TodosList;
-
  
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -76,19 +75,13 @@ const App = ({TodosList}) => {
             )}
             
           }}/>
-          <Tab.Screen name="Input" component={TodosScreen} options={{
+          <Tab.Screen name="Input" component={TodosInput} options={{
             tabBarIcon:({focused}) => (
-              <View>
               <AddButton />
-            </View>
-            ),
-            tabBarButton: (props) => (
-                <AddButton  {...props} />
             )
           }} />
           <Tab.Screen name="Stats" component={TodoStats} options={{
             tabBarIcon:({focused}) =>{
-              //  focused? switchInputState(false): null
                return(
               <View>
             <FontAwesome style={{fontSize:25,color:`${focused ? 'skyblue' :'lightgrey'}`}} icon={chartIcon} />
@@ -134,4 +127,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default inject('TodosList')(observer(App));
+export default inject('RootStore')(observer(App));

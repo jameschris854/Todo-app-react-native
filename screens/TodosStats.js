@@ -2,15 +2,19 @@ import {inject, observer} from 'mobx-react';
 import React from 'react';
 import {FlatList, Text, View, Dimensions} from 'react-native';
 import {PieChart} from 'react-native-chart-kit';
-import FontAwesome, { SolidIcons, RegularIcons, BrandIcons } from 'react-native-fontawesome';
+import FontAwesome, { SolidIcons, RegularIcons, BrandIcons,parseIconFromClassName } from 'react-native-fontawesome';
 SolidIcons._fontFamily = 'FontAwesome5Free-Solid';
+
+
 
 const chartConfig = {
   color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
 };
 
-const TodoStats = ({TodosList,route}) => {
-    const {switchInputState} = TodosList;
+const TodoStats = ({RootStore,route}) => {
+  const TodosList = RootStore.TodosList
+
+  const all = parseIconFromClassName('fas fa-clipboard-list')
   console.log('list : ' + JSON.stringify(TodosList.todos));
   let active = 0;
   let inactive = 0;
@@ -21,12 +25,12 @@ const TodoStats = ({TodosList,route}) => {
     {
       name: 'completed',
       tasks: (active / length) * 100,
-      color: '#79d279',
+      color: '#809fff',
     },
     {
       name: 'incomplete',
       tasks: (inactive / length) * 100,
-      color: '#809fff',
+      color: '#79d279',
     },
   ];
   // if(route.name === 'Stats') console.log('switching niputstate');
@@ -48,7 +52,7 @@ const TodoStats = ({TodosList,route}) => {
           height={350}
           chartConfig={chartConfig}
           accessor={'tasks'}
-          backgroundColor={'#fafafa'}
+          backgroundColor={'transparent'}
           paddingLeft={'60'}
           center={[20, 0]}
           absolute
@@ -66,15 +70,15 @@ const TodoStats = ({TodosList,route}) => {
           }}>
           </View>
           <View style={{display:'flex',flexDirection:'row',justifyContent:'center',padding:10,width:'100%'}}>
-            <FontAwesome style={{marginRight:10,color:'#809fff'}} icon={SolidIcons.smile} />
+            <FontAwesome style={{marginRight:10,color:'#79d279'}} icon={SolidIcons.check} />
             <Text>{`Finished tasks - ${inactive}`}</Text>
           </View>
         <View style={{display:'flex',flexDirection:'row',justifyContent:'center',padding:10,width:'100%',borderBottom:'solid',borderColor:'lightgrey'}}>
-            <FontAwesome style={{marginRight:10,color:'#79d279'}} icon={SolidIcons.smile} />
+            <FontAwesome style={{marginRight:10,color:'#809fff'}} icon={SolidIcons.tag} />
             <Text>{`Finished tasks - ${active}`}</Text>
           </View>
           <View style={{display:'flex',flexDirection:'row',justifyContent:'center',padding:10,width:'100%',borderBottom:'solid',borderColor:'lightgrey'}}>
-            <FontAwesome style={{marginRight:10,color:'red'}} icon={SolidIcons.smile} />
+            <FontAwesome style={{marginRight:10,color:'red'}} icon={SolidIcons.book} />
             <Text>{`Total tasks - ${length}`}</Text>
           </View>
       </View>
@@ -82,4 +86,4 @@ const TodoStats = ({TodosList,route}) => {
   );
 };
 
-export default inject('TodosList')(observer(TodoStats));
+export default inject('RootStore')(observer(TodoStats));

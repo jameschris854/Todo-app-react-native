@@ -2,15 +2,13 @@ import {inject, observer} from 'mobx-react';
 import React from 'react';
 import {View, Text, StyleSheet, Button, Pressable,Dimensions} from 'react-native';
 
-const AddButton = ({TodosList,navigation,...props}) => {
-  const {switchInputState,todoInputState} = TodosList;
+const AddButton = ({navigation,...props}) => {
   return (
-    <Pressable
+    <View
       style={styles.addButton}
-      onPress={() =>{
-         switchInputState(!todoInputState)}}>
+     >
       <Text style={{color: 'white', fontSize: 50}}>+</Text>
-    </Pressable>
+    </View>
   );
 };
 
@@ -41,4 +39,4 @@ const styles = StyleSheet.create({
 //   },
 // });
 
-export default inject('TodosList')(observer(AddButton));
+export default inject('RootStore')(observer(AddButton));

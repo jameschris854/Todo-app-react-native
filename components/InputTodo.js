@@ -15,8 +15,8 @@ import {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const InputTodo = ({TodosList}) => {
-  const {switchInputState, addNewTodo} = TodosList;
+const InputTodo = ({RootStore}) => {
+  const { addNewTodo} = RootStore.TodosList;
 
   const [inputText, setInputText] = useState('');
   return (
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject('TodosList')(observer(InputTodo));
+export default inject('RootStore')(observer(InputTodo));

@@ -8,11 +8,12 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { color } from 'react-native-reanimated';
 import FontAwesome, { SolidIcons, RegularIcons, BrandIcons,parseIconFromClassName } from 'react-native-fontawesome';
 SolidIcons._fontFamily = 'FontAwesome5Free-Solid';
-const deleteIcon = parseIconFromClassName('far fa-trash-alt')
 
-const TodoScreen = ({TodosList,navigation,route}) => {
+const TodoScreen = ({RootStore,navigation,route}) => {
+  const deleteIcon = parseIconFromClassName('fas fa-trash-alt')
+  const editIcon = parseIconFromClassName('fas fa-pen')
+  const TodosList = RootStore.TodosList
   console.log('list : ' + TodosList.todos);
-
   return (  
     <>
       {/* <AddButton /> */}
@@ -25,12 +26,11 @@ const TodoScreen = ({TodosList,navigation,route}) => {
          )}
          renderHiddenItem={ ({item}) => (
              <View style={styles.hiddenItem}>
+                 <Pressable onPress={() => TodosList.editTodo(item.id)}  style={{...styles.hiddenItemText,backgroundColor:'skyblue'}} ><FontAwesome style={{fontSize:20, marginRight:10,color:'white'}} icon={editIcon} /></Pressable>
                  <Pressable onPress={() => TodosList.deleteTodo(item.id)}  style={styles.hiddenItemText}><FontAwesome style={{fontSize:20, marginRight:10,color:'white'}} icon={deleteIcon} /></Pressable>
-                 <Pressable onPress={() => TodosList.deleteTodo(item.id)}  style={styles.hiddenItemText}><FontAwesome style={{fontSize:20, marginRight:10,color:'white'}} icon={SolidIcons.trash} /></Pressable>
              </View>
          )}
-         leftOpenValue={75}
-         rightOpenValue={-75}
+         rightOpenValue={-105}
      />
         
       }
@@ -43,20 +43,30 @@ const styles = StyleSheet.create({
   hiddenItem:{
     display:'flex',
     flexDirection:'row',
-    justifyContent:'space-between',
+    justifyContent:'flex-end',
     alignItems:'center',
-    backgroundColor:'red',
+    backgroundColor:'#ffff',
     width:'100%',
     height:'100%',
   },
   hiddenItemText:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
     color:'white',
-    fontSize:18,
+    fontSize:10,
     fontWeight:'900',
+    backgroundColor:'indianred',
+    height:'100%',
+    width:50,
+    paddingLeft:10,
+    margin:1,
+    borderRadius:10
+    
   }
 })
 
-export default inject('TodosList')(observer(TodoScreen));
+export default inject('RootStore')(observer(TodoScreen));
 
 
 {/* <FlatList

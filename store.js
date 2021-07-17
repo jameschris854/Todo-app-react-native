@@ -1,11 +1,12 @@
 import {observable, action, makeAutoObservable, makeObservable} from 'mobx';
+import { create } from 'mobx-persist';
+import { persist } from "mobx-persist";
 
 class TodosList {
   constructor() {
     makeObservable(this);
   }
-  @observable
-  todos = [{id:200,text:"asdsad",active:true},{id:300,text:"adasd",active:true},{id:283,text:"asdsdsa","active":true},{"id":400,"text":"asdasdas",active:false}];
+  @persist('list') @observable todos = [{id:200,text:"task number 1",active:true},{id:300,text:"task number 2",active:true},{id:283,text:"task number 3","active":true},{"id":400,"text":"task number 4",active:false}];
 
   @observable
   count = 0;

@@ -3,10 +3,10 @@ import React from 'react';
 import {View, Text, StyleSheet, Switch} from 'react-native';
 
 
-const TodoItem = ({text, active, TodosList, id}) => {
+const TodoItem = ({text, active, RootStore, id}) => {
   console.log(active);
 
-  const {switchTodoState} = TodosList;
+  const {switchTodoState} = RootStore.TodosList;
   console.log('active ' + active);
   return (
     <View style={styles(active).todoItemContainer}>
@@ -46,4 +46,4 @@ const styles = active =>
     },
   });
 
-export default inject('TodosList')(observer(TodoItem));
+export default inject('RootStore')(observer(TodoItem));

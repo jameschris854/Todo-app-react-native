@@ -11,8 +11,10 @@ import {Provider} from 'mobx-react';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
+import RootStore from './persist';
+
 const Root = () => (
-  <Provider TodosList={TodosList}>
+  <Provider RootStore={RootStore}>
     <NavigationContainer>
       <App />
     </NavigationContainer>
