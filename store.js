@@ -58,6 +58,21 @@ class TodosList {
     this.todos = updatedTodos;
 
   }
+  @action
+  editTodo = (id,editedText) => {
+    console.log('edit id :'+ id);
+    let data = this.todos;
+    let updatedTodos = [];
+    for (var i = 0; i< data.length ; i++){
+      if(id == data[i].id){
+        updatedTodos.push({id:id,text:editedText,active:true});
+      }else{
+        updatedTodos.push(data[i])
+      }
+    }
+    this.todos = updatedTodos;
+
+  }
 
 
 }

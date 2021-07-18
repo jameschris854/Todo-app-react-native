@@ -15,10 +15,10 @@ import {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const InputTodo = ({RootStore}) => {
-  const { addNewTodo} = RootStore.TodosList;
+const InputTodo = ({RootStore,editId,oldText}) => {
+  const { editTodo,switchInputState} = RootStore.TodosList;
 
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState(oldText?oldText:'');
   return (
     <View style={styles.inputWrapper} blurRadius={1}>
       <View style={styles.inputContainer}>
@@ -26,15 +26,16 @@ const InputTodo = ({RootStore}) => {
           style={styles.input}
           value={inputText}
           onChangeText={val => setInputText(val)}
-          placeholder="Add a new task"
+          placeholder="Edit text"
         />
         <Pressable
           style={styles.btn}
           onPress={() => {
-            addNewTodo(inputText);
+            editTodo(editId,inputText);
             setInputText('');
+            switchInputState(false)
           }}>
-          <Text style={{color: 'white'}}>Add</Text>
+          <Text style={{color: 'white'}}>save</Text>
         </Pressable>
       </View>
     </View>
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex:100
   },
   input: {
     borderWidth: 1,
